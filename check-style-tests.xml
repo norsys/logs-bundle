@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<ruleset name="Norsys test">
+    <rule ref="vendor/norsys/php-coding-standard/test"></rule>
+</ruleset>

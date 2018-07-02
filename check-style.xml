@@ -1,0 +1,3 @@
+<ruleset name="Norsys">
+    <rule ref="vendor/norsys/php-coding-standard/symfony"></rule>
+</ruleset>

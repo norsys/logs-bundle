@@ -1,0 +1,20 @@
+table.norsys-logs-results td {
+    word-break: break-all;
+    padding: 8px 5px;
+}
+
+table.norsys-logs-results td:first-child { white-space: nowrap; }
+
+.log-message {
+    font-weight: normal;
+    color: black;
+    word-break: break-all;
+}
+
+pre.prettyprint {
+    border: none !important;
+}
+
+pre {
+    background-color: transparent !important;
+}

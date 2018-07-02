@@ -1,0 +1,39 @@
+{
+    "name": "norsys/logs-bundle",
+    "description": "Write logs in database and read logs with browser",
+    "license": "proprietary",
+    "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "Cedric Vanet",
+            "email": "cvanet@norsys.fr"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Norsys\\LogsBundle\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Norsys\\LogsBundle\\Tests\\Units\\": "tests/units/src"
+        }
+    },
+    "require": {
+        "php": ">=7.0.0",
+        "symfony/symfony": "~3.4",
+        "knplabs/knp-paginator-bundle": "~2.5.3",
+        "monolog/monolog": "*",
+        "doctrine/dbal": "*",
+        "sensio/distribution-bundle": "^5.0",
+        "composer/composer": "^1.4"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^2.6",
+        "atoum/atoum": "~3.0",
+        "atoum/stubs": "~2.5",
+        "atoum/bdd-extension": "~2.1",
+        "norsys/php-coding-standard": "~1.0",
+        "norsys/rothenberg": "dev-master"
+    }
+}
