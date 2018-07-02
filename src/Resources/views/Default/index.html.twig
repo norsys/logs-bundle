@@ -1,0 +1,40 @@
+{% extends base_layout %}
+
+{% trans_default_domain 'NorsysLogsBundle' %}
+
+{% import "NorsysLogsBundle::utils.html.twig" as utils %}
+
+{% block norsys_logs_content %}
+    {% if pagination %}
+        <table class="table table-stripped monolog-browser-results">
+            <thead>
+                <tr>
+                    <th>{{ 'log.results.datetime' | trans }}</th>
+                    <th></th>
+                    <th>{{ 'log.results.message' | trans }}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in pagination %}
+                <tr>
+                    <td>{{ date(log.datetime) | date('F j H:i:s') }}</td>
+                    <td>{{ utils.render_count_badge(log.count) }}</td>
+                    <td>
+                        <a href="{{ path('norsys_logs_show', { 'id': log.id }) }}">
+                            <pre class="prettyprint">{{ log.message|length > 500 ? log.message|slice(0, 500) ~ '...' : log.message  }}</pre>
+                        </a>
+                    </td>
+                    <td>
+                        {{ utils.render_level_label(log.level, (log.channel ~ '.' ~ log.level_name)) }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    {% endif %}
+{% endblock %}

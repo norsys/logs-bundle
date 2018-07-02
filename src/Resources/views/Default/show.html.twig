@@ -1,0 +1,65 @@
+{% extends base_layout %}
+
+{% trans_default_domain 'NorsysLogsBundle' %}
+
+{% import "NorsysLogsBundle::utils.html.twig" as utils %}
+
+{% block norsys_logs_content %}
+    {{ block('log_header') }}
+    {{ block('log_content') }}
+{% endblock %}
+
+{% block log_header %}
+    <a href="{{ path('norsys_logs_index') }}" class="btn btn-small btn-primary">
+        <i class="icon-chevron-left icon-white"></i>
+        {{ 'log.show.back' | trans }}
+    </a>
+
+    <div class="page-header norsys-logs-header">
+        <div class="well well-small log-message">
+            <pre class="prettyprint">{{ log.message }}</pre>
+        </div>
+        {{ utils.render_level_label(log.level, (log.channel ~ '.' ~ log.levelName), { 'class': 'pull-right' }) }}
+        <strong>{{ log.date | date }}</strong>
+    </div>
+{% endblock %}
+
+{% block log_content %}
+    <div class="tabbable tabs-left">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#extra" data-toggle="tab">{{ 'log.show.extra' | trans }}</a></li>
+            <li><a href="#context" data-toggle="tab">{{ 'log.show.context' | trans }}</a></li>
+            <li><a href="#request" data-toggle="tab">{{ 'log.show.request' | trans }}</a></li>
+        </ul>
+        <div class="tab-content">
+            {% import _self as show_macros %}
+            <div class="tab-pane active" id="extra">
+                {{ show_macros.render_data_table(log.extra) }}
+            </div>
+            <div class="tab-pane" id="context">
+                {{ show_macros.render_data_table(log.context) }}
+            </div>
+            <div class="tab-pane" id="request">
+                <h2>SERVER</h2>
+                {{ show_macros.render_data_table(log.serverData) }}
+                <h2>POST</h2>
+                {{ show_macros.render_data_table(log.postData) }}
+                <h2>GET</h2>
+                {{ show_macros.render_data_table(log.getData) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% macro render_data_table(data) %}
+    <table class="table table-striped">
+        <tbody>
+        {% for label, value in data %}
+            <tr>
+                <th>{{ label }}</th>
+                <td>{{ value }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endmacro %}

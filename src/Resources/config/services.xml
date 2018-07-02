@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="norsys_logs.handler.doctrine_dbal.class">Norsys\LogsBundle\Handler\DoctrineDBALHandler</parameter>
+        <parameter key="norsys_logs.model.log_repository.class">Norsys\LogsBundle\Model\LogRepository</parameter>
+        <parameter key="norsys_logs.model.schema_builder.class">Norsys\LogsBundle\Model\SchemaBuilder</parameter>
+        <parameter key="norsys_logs.dbal.schema.class">Doctrine\DBAL\Schema\Schema</parameter>
+        <parameter key="norsys_logs.dbal.schema_diff.class">Doctrine\DBAL\Schema\SchemaDiff</parameter>
+        <parameter key="norsys_logs.dbal.comparator.class">Doctrine\DBAL\Schema\Comparator</parameter>
+        <parameter key="norsys_logs.dbal.schema_diff_factory.class">Norsys\LogsBundle\Model\SchemaDiffFactory</parameter>
+    </parameters>
+
+    <services>
+        <service id="norsys_logs.handler.doctrine_dbal" class="%norsys_logs.handler.doctrine_dbal.class%">
+            <argument type="service" id="norsys_logs.doctrine_dbal.connection" />
+            <argument>%norsys_logs.doctrine.table_name%</argument>
+        </service>
+
+        <service id="norsys_logs.model.log_repository" class="%norsys_logs.model.log_repository.class%">
+            <argument type="service" id="norsys_logs.doctrine_dbal.connection" />
+            <argument>%norsys_logs.doctrine.table_name%</argument>
+        </service>
+
+        <service id="norsys_logs.model.log_schema_builder" class="%norsys_logs.model.schema_builder.class%">
+            <argument type="service" id="norsys_logs.doctrine_dbal.connection" />
+            <argument>%norsys_logs.doctrine.table_name%</argument>
+            <argument type="service" id="norsys_logs.dbal.schema" />
+            <argument type="service" id="norsys_logs.dbal.schema_diff_factory"/>
+        </service>
+
+        <service id="norsys_logs.dbal.schema" class="%norsys_logs.dbal.schema.class%"/>
+        <service id="norsys_logs.dbal.schema_diff" class="%norsys_logs.dbal.schema_diff.class%" shared="false"/>
+        <service id="norsys_logs.dbal.comparator" class="%norsys_logs.dbal.comparator.class%"/>
+
+        <service id="norsys_logs.dbal.schema_diff_factory" class="%norsys_logs.dbal.schema_diff_factory.class%">
+            <argument type="service" id="norsys_logs.dbal.schema_diff"/>
+            <argument type="service" id="norsys_logs.dbal.comparator"/>
+            <argument type="service" id="norsys_logs.doctrine_dbal.connection"/>
+            <argument type="service" id="norsys_logs.dbal.schema"/>
+        </service>
+    </services>
+</container>

@@ -1,0 +1,15 @@
+language: php
+
+sudo: false
+
+php:
+    - 7.1
+    - 7.2
+
+install:
+    - composer install
+
+script:
+    - vendor/bin/phpcs --encoding=UTF-8 --ignore=.css --ignore=.scss --ignore=.js --standard=./check-style.xml ./src
+    - vendor/bin/phpcs --encoding=UTF-8 --ignore=.css --ignore=.scss --ignore=.js --standard=./check-style-tests.xml ./tests
+    - vendor/bin/atoum

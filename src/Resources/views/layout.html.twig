@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="{{ asset('bundles/norsyslogs/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/norsyslogs/css/log.css') }}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ type }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+            {% block norsys_logs_content %}
+            {% endblock %}
+        </div>
+
+        <script src="{{ asset('bundles/norsyslogs/js/jquery.min.js') }}"></script>
+        <script src="{{ asset('bundles/norsyslogs/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('bundles/norsyslogs/js/run_prettify.js') }}"></script>
+    </body>
+</html>
