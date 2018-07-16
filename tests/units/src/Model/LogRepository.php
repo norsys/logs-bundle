@@ -29,8 +29,8 @@ class LogRepository extends Test
             )
             ->if($r = $this->testedInstance->getLogsQueryBuilder())
             ->then
-                ->object($r)
-                    ->isInstanceOf(QueryBuilder::class);
+            ->object($r)
+            ->isInstanceOf(QueryBuilder::class);
     }
 
     public function testOnGetLogById()
@@ -66,10 +66,9 @@ class LogRepository extends Test
             )
             ->if($r = $this->testedInstance->getLogById($id))
             ->then
-                ->object($r)
-                    ->isInstanceOf(Log::class)
-                ->string($r->getMessage())
-                    ->isEqualTo('message_x');
-
+            ->object($r)
+            ->isInstanceOf(Log::class)
+            ->string($r->getMessage())
+            ->isEqualTo('message_x');
     }
 }

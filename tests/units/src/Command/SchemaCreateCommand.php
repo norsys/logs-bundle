@@ -19,21 +19,21 @@ class SchemaCreateCommand extends Test
             ->given($this->newTestedInstance())
             ->if($result = $this->testedInstance->getName())
             ->then
-                ->string($result)
-                    ->isEqualTo('norsys:logs:schema-create')
+            ->string($result)
+            ->isEqualTo('norsys:logs:schema-create')
             ->if($result = $this->testedInstance->getDescription())
             ->then
-                ->string($result)
-                    ->isEqualTo('Create schema to log Monolog entries')
+            ->string($result)
+            ->isEqualTo('Create schema to log Monolog entries')
             ->if($definition = $this->testedInstance->getDefinition())
             ->then
-                ->object($definition)->isInstanceOf(InputDefinition::class)
-                ->array($options = $definition->getOptions())
-                    ->hasKey('force')
-                ->object($options['force'])
-                    ->isEqualTo(
-                        new InputOption('force', 'f', null, 'Execute queries')
-                    );
+            ->object($definition)->isInstanceOf(InputDefinition::class)
+            ->array($options = $definition->getOptions())
+            ->hasKey('force')
+            ->object($options['force'])
+            ->isEqualTo(
+                new InputOption('force', 'f', null, 'Execute queries')
+            );
     }
 
     public function testOnExecuteMethodWithForceOptionActivated()
@@ -42,8 +42,8 @@ class SchemaCreateCommand extends Test
             ->assert('Option force is selected.')
             ->given(
                 $input = new MockOfInput,
-                $this->calling($input)->getOption = function($name) {
-                    if ($name === 'force' ) {
+                $this->calling($input)->getOption = function ($name) {
+                    if ($name === 'force') {
                         return true;
                     } else {
                         throw new \Exception('Option not found in test.');
@@ -53,7 +53,7 @@ class SchemaCreateCommand extends Test
                 $this->newTestedInstance(),
                 $container = new MockOfContainer,
                 $logSchemaBuilder = new MockOfLogSchemaBuilder,
-                $this->calling($container)->get = function($serviceId) use ($logSchemaBuilder) {
+                $this->calling($container)->get = function ($serviceId) use ($logSchemaBuilder) {
                     if ('norsys_logs.model.log_schema_builder' === $serviceId) {
                         return $logSchemaBuilder;
                     } else {
@@ -61,8 +61,7 @@ class SchemaCreateCommand extends Test
                     }
                 },
                 $this->testedInstance->setContainer($container),
-
-                $this->calling($container)->getParameter = function($name) {
+                $this->calling($container)->getParameter = function ($name) {
                     if ('norsys_logs.doctrine.table_name' === $name) {
                         return 'table_name';
                     } else {
@@ -83,7 +82,7 @@ class SchemaCreateCommand extends Test
                             ->once
             ->assert('The drop operation returns a exception.')
             ->given(
-                $this->calling($logSchemaBuilder)->drop = function() {
+                $this->calling($logSchemaBuilder)->drop = function () {
                     throw new \Exception();
                 }
             )
@@ -103,8 +102,8 @@ class SchemaCreateCommand extends Test
             ->assert('Option force is not selected.')
             ->given(
                 $input = new MockOfInput,
-                $this->calling($input)->getOption = function($name) {
-                    if ($name === 'force' ) {
+                $this->calling($input)->getOption = function ($name) {
+                    if ($name === 'force') {
                         return false;
                     } else {
                         throw new \Exception('ok');
@@ -114,7 +113,7 @@ class SchemaCreateCommand extends Test
                 $this->newTestedInstance(),
                 $container = new MockOfContainer,
                 $logSchemaBuilder = new MockOfLogSchemaBuilder,
-                $this->calling($container)->get = function($serviceId) use ($logSchemaBuilder) {
+                $this->calling($container)->get = function ($serviceId) use ($logSchemaBuilder) {
                     if ('norsys_logs.model.log_schema_builder' === $serviceId) {
                         return $logSchemaBuilder;
                     } else {
@@ -122,8 +121,7 @@ class SchemaCreateCommand extends Test
                     }
                 },
                 $this->testedInstance->setContainer($container),
-
-                $this->calling($container)->getParameter = function($name) {
+                $this->calling($container)->getParameter = function ($name) {
                     if ('norsys_logs.doctrine.table_name' === $name) {
                         return 'table_name';
                     } else {
@@ -144,7 +142,7 @@ class SchemaCreateCommand extends Test
                             ->once
             ->assert('The create operation returns a exception.')
             ->given(
-                $this->calling($logSchemaBuilder)->create = function() {
+                $this->calling($logSchemaBuilder)->create = function () {
                     throw new \Exception();
                 }
             )

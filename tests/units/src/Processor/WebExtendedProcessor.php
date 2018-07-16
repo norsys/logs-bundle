@@ -16,8 +16,8 @@ class WebExtendedProcessor extends Test
             )
             ->if($r = $this->testedInstance->__invoke($record))
             ->then
-                ->array($r)
-                    ->isEqualTo($record)
+            ->array($r)
+            ->isEqualTo($record)
             ->assert('REQUEST_URI is set.')
             ->given(
                 $serverData = ['REQUEST_URI' => '128.0.0.1'],
@@ -25,14 +25,16 @@ class WebExtendedProcessor extends Test
             )
             ->if($r = $this->testedInstance->__invoke($record))
             ->then
-                ->array($r)
-                    ->isEqualTo([
+            ->array($r)
+            ->isEqualTo(
+                [
                         'record1' => 'record1_value',
                         'http_server' => [
                             'REQUEST_URI' => '128.0.0.1'
                         ],
                         'http_post' => [],
                         'http_get' => []
-                    ]);
+                        ]
+            );
     }
 }

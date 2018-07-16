@@ -15,7 +15,7 @@ class NormalizerFormatter extends Test
             )
             ->if($r = $this->testedInstance->format($data))
             ->then
-                ->array($r)
-                    ->isEqualTo(['["val_1","val_1_bis"]', 'val_2']);
+            ->array($r)
+            ->isEqualTo(['["val_1","val_1_bis"]', 'val_2']);
     }
 }

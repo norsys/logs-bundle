@@ -26,8 +26,8 @@ class DefaultController extends Test
             ->given(
                 $request = new MockOfRequest,
                 $parameterBag = new MockOfParameterBag,
-                $this->calling($parameterBag)->get = function($argument) {
-                    if('page' === $argument) {
+                $this->calling($parameterBag)->get = function ($argument) {
+                    if ('page' === $argument) {
                         return 1;
                     } else {
                         throw new \Exception(sprintf('argument %s not handled.', $argument));
@@ -45,7 +45,7 @@ class DefaultController extends Test
                 $this->calling($knpPaginator)->paginate = new MockOfPagination,
                 $twig = new MockOfTwig,
 
-                $this->calling($container)->get = function($serviceName) use (
+                $this->calling($container)->get = function ($serviceName) use (
                     $logsModelRepository,
                     $knpPaginator,
                     $twig
@@ -53,20 +53,24 @@ class DefaultController extends Test
                     switch ($serviceName) {
                         case 'norsys_logs.model.log_repository':
                             return $logsModelRepository;
+
                         case 'knp_paginator':
                             return $knpPaginator;
+
                         case 'twig':
                             return $twig;
-                        default: throw new \Exception(
-                            sprintf(
-                                'Service "%s" not found for get method.',
-                                $serviceName
-                            )
-                        );
+
+                        default:
+                            throw new \Exception(
+                                sprintf(
+                                    'Service "%s" not found for get method.',
+                                    $serviceName
+                                )
+                            );
                     }
                 },
                 $viewName = 'NorsysLogsBundle:Default:index.html.twig',
-                $this->calling($twig)->render = function($view, $parameters) use ($viewName) {
+                $this->calling($twig)->render = function ($view, $parameters) use ($viewName) {
                     $this->string($view)
                         ->isEqualTo($viewName);
                     $this->array($parameters)
@@ -76,12 +80,14 @@ class DefaultController extends Test
                     $this->variable($parameters['base_layout'])
                         ->isNull;
                 },
-                $this->calling($container)->has = function($serviceName) use ($twig) {
+                $this->calling($container)->has = function ($serviceName) use ($twig) {
                     switch ($serviceName) {
                         case 'twig':
                             return true;
+
                         case 'templating':
                             return false;
+
                         default:
                             throw new \Exception(
                                 sprintf(
@@ -102,12 +108,14 @@ class DefaultController extends Test
             ->assert('Client do not have access.')
             ->given(
                 $container = new MockOfContainer,
-                $this->calling($container)->getParameter = function($name) {
-                    switch($name) {
+                $this->calling($container)->getParameter = function ($name) {
+                    switch ($name) {
                         case 'norsys_logs.security.enabled':
                             return true;
+
                         case 'norsys_logs.security.allowed_ips':
                             return ['128.0.0.1'];
+
                         default:
                             throw new \Exception('Parameter for container not handled in test.');
                     }
@@ -117,26 +125,28 @@ class DefaultController extends Test
                 $this->newTestedInstance(),
                 $this->testedInstance->setContainer($container),
                 $logsModelRepository = new MockOfLogsModelRepository,
-                $this->calling($container)->get = function($serviceName) use (
+                $this->calling($container)->get = function ($serviceName) use (
                     $logsModelRepository
                 ) {
-                switch ($serviceName) {
-                    case 'norsys_logs.model.log_repository':
-                        return $logsModelRepository;
-                    default:
-                        throw new \Exception(
-                            sprintf(
-                                'Service "%s" not found for get method.',
-                                $serviceName
-                            )
-                        );
+                    switch ($serviceName) {
+                        case 'norsys_logs.model.log_repository':
+                            return $logsModelRepository;
+
+                        default:
+                            throw new \Exception(
+                                sprintf(
+                                    'Service "%s" not found for get method.',
+                                    $serviceName
+                                )
+                            );
                     }
                 }
             )
             ->exception(
-                function() use ($request) {
+                function () use ($request) {
                     $this->testedInstance->indexAction($request);
-            })->isInstanceOf(NotFoundHttpException::class);
+                }
+            )->isInstanceOf(NotFoundHttpException::class);
     }
 
     public function testOnShowAction()
@@ -148,24 +158,29 @@ class DefaultController extends Test
                 $logsModelRepository = new MockOfLogsModelRepository,
                 $this->calling($logsModelRepository)->getLogById = new MockOfLog,
                 $twig = new MockOfTwig,
-                $this->calling($container)->get = function($serviceName) use ($logsModelRepository, $twig) {
+                $this->calling($container)->get = function ($serviceName) use ($logsModelRepository, $twig) {
                     switch ($serviceName) {
                         case 'norsys_logs.model.log_repository':
                             return $logsModelRepository;
+
                         case 'twig':
                             return $twig;
-                        default: throw new \Exception(
-                            'Service "%s" not found for get method.',
-                            $serviceName
-                        );
+
+                        default:
+                            throw new \Exception(
+                                'Service "%s" not found for get method.',
+                                $serviceName
+                            );
                     }
                 },
-                $this->calling($container)->has = function($serviceName) use ($twig) {
+                $this->calling($container)->has = function ($serviceName) use ($twig) {
                     switch ($serviceName) {
                         case 'twig':
                             return true;
+
                         case 'templating':
                             return false;
+
                         default:
                             throw new \Exception(
                                 sprintf(
@@ -176,7 +191,7 @@ class DefaultController extends Test
                     }
                 },
                 $viewName = 'NorsysLogsBundle:Default:show.html.twig',
-                $this->calling($twig)->render = function($view, $parameters) use ($viewName) {
+                $this->calling($twig)->render = function ($view, $parameters) use ($viewName) {
                     $this->string($view)
                         ->isEqualTo($viewName);
                     $this->array($parameters)
@@ -203,22 +218,26 @@ class DefaultController extends Test
                 $logsModelRepository = new MockOfLogsModelRepository,
                 $this->calling($logsModelRepository)->getLogById = new MockOfLog,
                 $container = new MockOfContainer,
-                $this->calling($container)->get = function($serviceName) use ($logsModelRepository) {
+                $this->calling($container)->get = function ($serviceName) use ($logsModelRepository) {
                     switch ($serviceName) {
                         case 'norsys_logs.model.log_repository':
                             return $logsModelRepository;
-                        default: throw new \Exception(
-                            'Service "%s" not found for get method.',
-                            $serviceName
-                        );
+
+                        default:
+                            throw new \Exception(
+                                'Service "%s" not found for get method.',
+                                $serviceName
+                            );
                     }
                 },
-                $this->calling($container)->getParameter = function($name) {
-                    switch($name) {
+                $this->calling($container)->getParameter = function ($name) {
+                    switch ($name) {
                         case 'norsys_logs.security.enabled':
                             return false;
+
                         case 'norsys_logs.security.allowed_ips':
                             return ['128.0.0.1'];
+
                         default:
                             throw new \Exception('Parameter for container not handled in test.');
                     }
@@ -231,7 +250,7 @@ class DefaultController extends Test
                 $id = 1
             )
             ->exception(
-                function() use ($request, $id) {
+                function () use ($request, $id) {
                     $this->testedInstance->showAction($request, $id);
                 }
             )->isInstanceOf(NotFoundHttpException::class)
@@ -243,23 +262,27 @@ class DefaultController extends Test
                 $logsModelRepository = new MockOfLogsModelRepository,
                 $this->calling($logsModelRepository)->getLogById = new MockOfLog,
                 $container = new MockOfContainer,
-                $this->calling($container)->get = function($serviceName) use ($logsModelRepository) {
+                $this->calling($container)->get = function ($serviceName) use ($logsModelRepository) {
                     switch ($serviceName) {
                         case 'norsys_logs.model.log_repository':
                             return $logsModelRepository;
-                        default: throw new \Exception(
-                            'Service "%s" not found for get method.',
-                            $serviceName
-                        );
+
+                        default:
+                            throw new \Exception(
+                                'Service "%s" not found for get method.',
+                                $serviceName
+                            );
                     }
                 },
                 $this->calling($logsModelRepository)->getLogById = null,
-                $this->calling($container)->getParameter = function($name) {
-                    switch($name) {
+                $this->calling($container)->getParameter = function ($name) {
+                    switch ($name) {
                         case 'norsys_logs.security.enabled':
                             return true;
+
                         case 'norsys_logs.security.allowed_ips':
                             return ['128.0.0.1'];
+
                         default:
                             throw new \Exception('Parameter for container not handled in test.');
                     }
@@ -271,7 +294,7 @@ class DefaultController extends Test
                 $id = 1
             )
             ->exception(
-                function() use ($request, $id) {
+                function () use ($request, $id) {
                     $this->testedInstance->showAction($request, $id);
                 }
             )->isInstanceOf(NotFoundHttpException::class);

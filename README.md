@@ -5,6 +5,7 @@
 [![Build Status](https://img.shields.io/travis/M6Web/ApiExceptionBundle/master.svg?style=flat-square)](https://travis-ci.org/M6Web/ApiExceptionBundle)
 [![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/norsys/logs-bundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/norsys/logs-bundle/?branch=master)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/norsys/logs-bundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/norsys/logs-bundle/?branch=master)
+[![License](https://img.shields.io/packagist/l/norsys/logs-bundle.svg?style=flat-square)](https://packagist.org/packages/norsys/logs-bundle)
 
 This project is a bundle to write logs in database and read logs with browser
 

@@ -15,7 +15,7 @@ class LoggerAwarePass extends Test
             ->assert('Test on process method.')
             ->given(
                 $container = new MockOfContainer,
-                $this->calling($container)->findTaggedServiceIds = function($taggedServiceId) {
+                $this->calling($container)->findTaggedServiceIds = function ($taggedServiceId) {
                     if ($this->testedClass->getClass()::REFERENCE === $taggedServiceId) {
                         return ['id_1' => ['tag_1', 'tag_2']];
                     } else {

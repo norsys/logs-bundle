@@ -20,10 +20,10 @@ class DoctrineDBALHandler extends Test
             )
             ->if($result = $this->testedInstance->handle($record))
             ->then
-                ->mock($connection)
-                    ->receive('insert')
-                        ->withArguments($tableName, $record)
-                            ->once;
+            ->mock($connection)
+            ->receive('insert')
+            ->withArguments($tableName, $record)
+            ->once;
     }
 
     public function testOnDefaultFormater()
@@ -37,7 +37,7 @@ class DoctrineDBALHandler extends Test
             )
             ->if($result = $this->testedInstance->getFormatter())
             ->then
-                ->object($result)
-                    ->isInstanceOf(NormalizerFormatter::class);
+            ->object($result)
+            ->isInstanceOf(NormalizerFormatter::class);
     }
 }
