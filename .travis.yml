@@ -3,6 +3,7 @@ language: php
 sudo: false
 
 php:
+    - 7.0
     - 7.1
     - 7.2
 
@@ -13,3 +14,7 @@ script:
     - vendor/bin/phpcs --encoding=UTF-8 --ignore=.css --ignore=.scss --ignore=.js --standard=./check-style.xml ./src
     - vendor/bin/phpcs --encoding=UTF-8 --ignore=.css --ignore=.scss --ignore=.js --standard=./check-style-tests.xml ./tests
     - vendor/bin/atoum
+
+after_script:
+    - wget https://scrutinizer-ci.com/ocular.phar
+    - php ocular.phar code-coverage:upload --format=php-clover clover.xml
