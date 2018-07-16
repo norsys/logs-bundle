@@ -1,9 +1,13 @@
 filter:
-    excluded_paths: ['vendor/*', 'Tests/*']
+    excluded_paths:
+        - "tests/*"
+        - ".atoum.php"
+    dependency_paths:
+        - "env/*"
+        - "vendor/*"
 
 before_commands:
-    - "composer self-update"
-    - "composer install --prefer-source --dev"
+    - "composer install"
 
 tools:
     external_code_coverage:
