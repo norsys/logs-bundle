@@ -33,9 +33,11 @@ class SchemaDiffFactory extends Test
                 $this->newTestedInstance($schemaDiff, $comparator, $connection, $schema),
                 $tableName = 'table_name'
             )
-            ->exception(function() {
-                $this->testedInstance->getSchemaDiff();
-            })->isInstanceOf(\Exception::class)
+            ->exception(
+                function () {
+                    $this->testedInstance->getSchemaDiff();
+                }
+            )->isInstanceOf(\Exception::class)
             ->assert('The comparator found no diff.')
             ->given(
                 $this->testedInstance->setTableName($tableName)

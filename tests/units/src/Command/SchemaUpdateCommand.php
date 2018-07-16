@@ -25,22 +25,22 @@ class SchemaUpdateCommand extends Test
             ->given($this->newTestedInstance())
             ->if($result = $this->testedInstance->getName())
             ->then
-                ->string($result)
-                    ->isEqualTo('norsys:logs:schema-update')
+            ->string($result)
+            ->isEqualTo('norsys:logs:schema-update')
             ->if($result = $this->testedInstance->getDescription())
             ->then
-                ->string($result)
-                    ->isEqualTo('Update Monolog table from schema')
+            ->string($result)
+            ->isEqualTo('Update Monolog table from schema')
             ->if($definition = $this->testedInstance->getDefinition())
             ->then
-                ->object($definition)
-                    ->isInstanceOf(InputDefinition::class)
-                ->array($options = $definition->getOptions())
-                    ->hasKey('force')
-                ->object($options['force'])
-                    ->isEqualTo(
-                        new InputOption('force', 'f', null, 'Execute queries')
-                    );
+            ->object($definition)
+            ->isInstanceOf(InputDefinition::class)
+            ->array($options = $definition->getOptions())
+            ->hasKey('force')
+            ->object($options['force'])
+            ->isEqualTo(
+                new InputOption('force', 'f', null, 'Execute queries')
+            );
     }
 
     public function testOnExecuteMethod()
@@ -56,18 +56,22 @@ class SchemaUpdateCommand extends Test
                 $this->calling($dbaConnection)->getDatabasePlatform = new MockOfPlatform,
                 $schemaDiffFactory = new MockOfSchemaDiffFactory,
                 $this->calling($schemaDiffFactory)->getSchemaDiff = $schemaDiff,
-                $this->calling($container)->get = function($serviceName) use ($logSchemaBuilder, $dbaConnection, $schemaDiffFactory) {
+                $this->calling($container)->get = function ($serviceName) use ($logSchemaBuilder, $dbaConnection, $schemaDiffFactory) {
                     switch ($serviceName) {
                         case 'norsys_logs.doctrine_dbal.connection':
                             return $dbaConnection;
+
                         case 'norsys_logs.model.log_schema_builder':
                             return $logSchemaBuilder;
+
                         case 'norsys_logs.dbal.schema_diff_factory':
                             return $schemaDiffFactory;
-                        default: throw new \Exception('Service not found on test.');
+
+                        default:
+                            throw new \Exception('Service not found on test.');
                     }
                 },
-                $this->calling($container)->getParameter = function($name) {
+                $this->calling($container)->getParameter = function ($name) {
                     if ('norsys_logs.doctrine.table_name' === $name) {
                         return 'table_name';
                     } else {
@@ -105,7 +109,7 @@ class SchemaUpdateCommand extends Test
                             ->once
             ->assert('We try when the force option is not enabled.')
             ->given(
-                $this->calling($input)->getOption = function($optionName) {
+                $this->calling($input)->getOption = function ($optionName) {
                     if ('force' === $optionName) {
                         return false;
                     } else {
@@ -114,7 +118,7 @@ class SchemaUpdateCommand extends Test
                 },
                 $helperSet = new MockOfHelperSet,
                 $questionHelper = new MockOfQuestionHelper,
-                $this->calling($helperSet)->get = function($name) use ($questionHelper) {
+                $this->calling($helperSet)->get = function ($name) use ($questionHelper) {
                     if ('question' === $name) {
                         return $questionHelper;
                     } else {
@@ -138,8 +142,7 @@ class SchemaUpdateCommand extends Test
                 ->mock($output)
                     ->receive('writeln')
                         ->withArguments(
-                            '<info>Successfully updated Monolog table "<comment>table_name</comment>"! "2" queries ' .
-                            'were executed</info>'
+                            '<info>Successfully updated Monolog table "<comment>table_name</comment>"! "2" queries were executed</info>'
                         )
                             ->once
                 ->variable($result)

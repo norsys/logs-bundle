@@ -13,8 +13,7 @@ class Test extends atoum
 
         $this->mockGenerator
             ->allIsInterface()
-            ->eachInstanceIsUnique()
-        ;
+            ->eachInstanceIsUnique();
 
         return parent::beforeTestMethod($method);
     }

@@ -31,16 +31,16 @@ class SchemaBuilder extends Test
             )
             ->if($this->testedInstance->drop())
             ->then
-                ->mock($schema)
-                    ->receive('toDropSql')
-                        ->once
-                ->mock($connection)
-                    ->receive('query')
-                        ->withArguments('query_1')
-                            ->once
-                    ->receive('query')
-                        ->withArguments('query_2')
-                            ->once;
+            ->mock($schema)
+            ->receive('toDropSql')
+            ->once
+            ->mock($connection)
+            ->receive('query')
+            ->withArguments('query_1')
+            ->once
+            ->receive('query')
+            ->withArguments('query_2')
+            ->once;
     }
 
     public function testOnCreateMethod()
@@ -61,13 +61,13 @@ class SchemaBuilder extends Test
             )
             ->if($this->testedInstance->create())
             ->then
-                ->mock($schema)
-                    ->receive('toSql')
-                        ->once
-                ->mock($connection)
-                    ->receive('query')
-                        ->withArguments('query_1')
-                            ->once;
+            ->mock($schema)
+            ->receive('toSql')
+            ->once
+            ->mock($connection)
+            ->receive('query')
+            ->withArguments('query_1')
+            ->once;
     }
 
     public function testOnUpdateMethod()
@@ -90,15 +90,14 @@ class SchemaBuilder extends Test
                 $schemaDiff = new MockOfSchemaDiff,
                 $this->calling($schemaDiffFactory)->getSchemaDiff = $schemaDiff,
                 $this->calling($schemaDiff)->toSaveSql = ['query_1'],
-
                 $this->newTestedInstance($connection, $tableName, $schema, $schemaDiffFactory)
             )
             ->if($this->testedInstance->update())
             ->then
-                ->mock($connection)
-                    ->receive('query')
-                        ->withArguments('query_1')
-                            ->once;
+            ->mock($connection)
+            ->receive('query')
+            ->withArguments('query_1')
+            ->once;
         ;
     }
 }

@@ -7,14 +7,13 @@ use mageekguy\atoum\mock;
 
 class Test extends atoum
 {
-    function beforeTestMethod($method)
+    public function beforeTestMethod($method)
     {
         mock\controller::disableAutoBindForNewMock();
 
         $this->mockGenerator
             ->allIsInterface()
-            ->eachInstanceIsUnique()
-        ;
+            ->eachInstanceIsUnique();
 
         return parent::beforeTestMethod($method);
     }
