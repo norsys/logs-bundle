@@ -7,6 +7,8 @@
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/norsys/logs-bundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/norsys/logs-bundle/?branch=master)
 [![License](https://img.shields.io/packagist/l/norsys/logs-bundle.svg?style=flat-square)](https://packagist.org/packages/norsys/logs-bundle)
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/c4f06306-b25a-40ef-96c6-b423cbcbe318/big.png)](https://insight.sensiolabs.com/projects/c4f06306-b25a-40ef-96c6-b423cbcbe318)
+
 This project is a bundle to write logs in database and read logs with browser
 
 Installation
