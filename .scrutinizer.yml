@@ -2,7 +2,7 @@ filter:
     excluded_paths:
         - "tests/*"
         - ".atoum.php"
-        - "src/Resources/public/js/bootsrap.min.js"
+        - "src/Resources/public/js/bootstrap.min.js"
         - "src/Resources/public/js/jquery.min.js"
         - "src/Resources/public/js/run_prettify.js"
     dependency_paths:
