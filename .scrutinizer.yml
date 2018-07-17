@@ -17,4 +17,4 @@ tools:
     sensiolabs_security_checker: true
     php_pdepend: true
     php_loc: true
-    php_cpd: true
+    php_cpd: false
