@@ -1,7 +1,7 @@
 {
     "name": "norsys/logs-bundle",
     "description": "Write logs in database and read logs with browser",
-    "license": "proprietary",
+    "license": "MIT",
     "type": "symfony-bundle",
     "authors": [
         {
