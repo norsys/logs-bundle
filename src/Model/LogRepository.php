@@ -2,7 +2,7 @@
 
 namespace Norsys\LogsBundle\Model;
 
-use Doctrine\DBAL\Driver\Connection;
+use Doctrine\DBAL\Connection;
 
 /**
  * Class LogRepository
