@@ -5,7 +5,7 @@
 [![Build Status](https://img.shields.io/travis/M6Web/ApiExceptionBundle/master.svg?style=flat-square)](https://travis-ci.org/M6Web/ApiExceptionBundle)
 [![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/norsys/logs-bundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/norsys/logs-bundle/?branch=master)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/norsys/logs-bundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/norsys/logs-bundle/?branch=master)
-[![License](https://img.shields.io/packagist/l/norsys/logs-bundle.svg?style=flat-square)](https://packagist.org/packages/norsys/logs-bundle)
+[![License](https://img.shields.io/github/license/norsys/logs-bundle.svg?style=flat-square)](https://github.com/norsys/logs-bundle/blob/master/LICENSE)
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/c4f06306-b25a-40ef-96c6-b423cbcbe318/big.png)](https://insight.sensiolabs.com/projects/c4f06306-b25a-40ef-96c6-b423cbcbe318)
 
